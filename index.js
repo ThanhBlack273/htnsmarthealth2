@@ -77,17 +77,6 @@ mongoClient.connect(url, (err, db) =>{
 
 
       // routes
-      app.get("/", async (req, res) => {
-        // fs.readFile(DB_PATH, "utf-8", (err, jsonString) => {
-        //   if (err) return console.log("Error in reading from db");
-        //   let values = JSON.parse(jsonString);
-        //   res.status(200).json({
-        //     totalValues: values.length,
-        //     values,
-        //   });
-        // });
-        res.send(req.body.httpRequestData)
-      });
       app.post("/", async (req, res) => {
         // fs.readFile(DB_PATH, "utf-8", (err, jsonString) => {
         //   if (err) return console.log("Error in reading from db");
@@ -111,14 +100,17 @@ mongoClient.connect(url, (err, db) =>{
         //   });
         // });
         //console.log(req.body)
-        console.log(req.body.spo2)
-        console.log(req.body.rate)
-        console.log("hello")
+        const myDb = db.db('Data')
+        const collection = myDb.collection('main')
         const value = {
           spo2 : req.body.spo2,
-          rate : req.body.rate
+          rate : req.body.rate,
+          timestamp: new Date()
         }
-        res.send(JSON.stringify(value))
+        collection.insertOne(value, (err, result) =>{
+          res.status(200).send(JSON.stringify(value))
+        })
+        
       });
     }
     

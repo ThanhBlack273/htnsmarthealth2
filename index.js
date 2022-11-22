@@ -110,7 +110,11 @@ mongoClient.connect(url, (err, db) =>{
         //     });
         //   });
         // });
-        res.send(req.body.httpRequestData)
+        //console.log(req.body)
+        console.log(req.body.spo2)
+        console.log(req.body.rate)
+        console.log("hello")
+        res.send("hello")
       });
     }
     

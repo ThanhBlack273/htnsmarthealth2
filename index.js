@@ -114,7 +114,11 @@ mongoClient.connect(url, (err, db) =>{
         console.log(req.body.spo2)
         console.log(req.body.rate)
         console.log("hello")
-        res.send("hello")
+        const value = {
+          spo2 : req.body.spo2,
+          rate : req.body.rate
+        }
+        res.send(JSON.stringify(value))
       });
     }
     

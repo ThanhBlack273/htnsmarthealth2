@@ -86,7 +86,7 @@ mongoClient.connect(url, (err, db) =>{
         //     values,
         //   });
         // });
-        res.send("hello")
+        res.send(req.body.httpRequestData)
       });
       app.post("/", async (req, res) => {
         // fs.readFile(DB_PATH, "utf-8", (err, jsonString) => {
@@ -110,7 +110,7 @@ mongoClient.connect(url, (err, db) =>{
         //     });
         //   });
         // });
-        res.send("hello")
+        res.send(req.body.httpRequestData)
       });
     }
     

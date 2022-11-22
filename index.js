@@ -78,14 +78,15 @@ mongoClient.connect(url, (err, db) =>{
 
       // routes
       app.get("/", async (req, res) => {
-        fs.readFile(DB_PATH, "utf-8", (err, jsonString) => {
-          if (err) return console.log("Error in reading from db");
-          let values = JSON.parse(jsonString);
-          res.status(200).json({
-            totalValues: values.length,
-            values,
-          });
-        });
+        // fs.readFile(DB_PATH, "utf-8", (err, jsonString) => {
+        //   if (err) return console.log("Error in reading from db");
+        //   let values = JSON.parse(jsonString);
+        //   res.status(200).json({
+        //     totalValues: values.length,
+        //     values,
+        //   });
+        // });
+        res.send("hello")
       });
       app.post("/", async (req, res) => {
         // fs.readFile(DB_PATH, "utf-8", (err, jsonString) => {

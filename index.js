@@ -88,27 +88,28 @@ mongoClient.connect(url, (err, db) =>{
         });
       });
       app.post("/", async (req, res) => {
-        fs.readFile(DB_PATH, "utf-8", (err, jsonString) => {
-          if (err) return console.log("Error in reading from db");
-          let body = req.body;
-          let valuesArr = JSON.parse(jsonString);
+        // fs.readFile(DB_PATH, "utf-8", (err, jsonString) => {
+        //   if (err) return console.log("Error in reading from db");
+        //   let body = req.body;
+        //   let valuesArr = JSON.parse(jsonString);
           
-          let obj = {
-            temperature: body.rate,
-            humidity: body.sp02,
-            timestamp: new Date(),
-          };
-          console.log(obj)
+        //   let obj = {
+        //     temperature: body.rate,
+        //     humidity: body.sp02,
+        //     timestamp: new Date(),
+        //   };
+        //   console.log(obj)
 
-          valuesArr.push(obj);
-          fs.writeFile(DB_PATH, JSON.stringify(valuesArr), (err) => {
-            if (err) return console.log("Error in updating db");
-            res.status(200).json({
-              message: "Values saved",
-              value: valuesArr[valuesArr.length - 1],
-            });
-          });
-        });
+        //   valuesArr.push(obj);
+        //   fs.writeFile(DB_PATH, JSON.stringify(valuesArr), (err) => {
+        //     if (err) return console.log("Error in updating db");
+        //     res.status(200).json({
+        //       message: "Values saved",
+        //       value: valuesArr[valuesArr.length - 1],
+        //     });
+        //   });
+        // });
+        res.send("hello")
       });
     }
     

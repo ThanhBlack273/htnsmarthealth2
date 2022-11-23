@@ -13,7 +13,8 @@ const { Telegraf } = require("telegraf");
 const DB_PATH = path.resolve("db.json");
 
 //telegram
-const YOUR_TOKEN = "5981121317:AAG4Kgq5NtGxX9n7UbCFOnXgZFJrSnT1K2E";
+const YOUR_TOKEN = "5981121317:AAELHtHDV9M-IZUKrjY6as8OKsWa3pC2HCc";
+
 //const bot = new Telegraf(YOUR_TOKEN);
 const bot = new TelegramBot(YOUR_TOKEN, {polling: true});
 
@@ -115,10 +116,8 @@ mongoClient.connect(url, (err, db) =>{
           rate : req.body.rate,
           timestamp: new Date()
         }
-
         if (value.rate>100)
         {
- 
           const mydb2 = db.db('Data')
           const collection2 = mydb2.collection('User')
           collection2.find({}).toArray( function(err, result) {

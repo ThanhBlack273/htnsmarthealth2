@@ -14,11 +14,9 @@ const DB_PATH = path.resolve("db.json");
 
 //telegram
 const YOUR_TOKEN = "5981121317:AAELHtHDV9M-IZUKrjY6as8OKsWa3pC2HCc";
-
-//const bot = new Telegraf(YOUR_TOKEN);
 const bot = new TelegramBot(YOUR_TOKEN, {polling: true});
 
-
+//Mongodb
 const url = "mongodb+srv://thanhnguyen1:thanhnguyen1@dahtnsmarthealth.6rpbgmj.mongodb.net/test"
 app.use(express.json())
 
@@ -31,7 +29,6 @@ mongoClient.connect(url, (err, db) =>{
       bot.onText(/\/echo (.+)/, (msg, match) => {
         const chatId = msg.chat.id;
         const resp = match[1]; 
-
         bot.sendMessage(chatId, resp);
       });
 
@@ -43,10 +40,10 @@ mongoClient.connect(url, (err, db) =>{
 
         collection.findOne(userId, (err,result)=>{
           if (result!=null) {
-            bot.sendMessage(chatId, `Tài khoản đã đăng ký`);
+            bot.sendMessage(chatId, `Tài khoản đã đăng ký rồi`);
           } else {
             collection.insertOne(userId)
-            bot.sendMessage(chatId, `Đã đăng ký xong xong`);
+            bot.sendMessage(chatId, `Đã đăng ký thành công`);
           }
         })
       });
@@ -70,42 +67,8 @@ mongoClient.connect(url, (err, db) =>{
             console.log("die")
             bot.sendMessage(chatId, `Không có dữ liệu`);
           }
-        })
-
-        // collection.find({},{$limit:5}).toArray( function(err, result) {
-        //   if (result!=null) {
-        //     bot.sendMessage(chatId, `${JSON.stringify(result)}`);
-        //     console.log("live")
-        //   } else {
-        //     console.log("die")
-        //     bot.sendMessage(chatId, `Không có dữ liệu`);
-        //   }
-        // })
-        
-        
+        })     
       });
-
-      // bot.on('message', async (msg,match) => {
-      //   const chatId = msg.chat.id;
-      //   const resp = match[0]; 
-        
-      //   bot.sendMessage(chatId, resp);
-      // });
-
-      // bot.start((ctx) => ctx.reply("Welcome"));
-      // bot.help((ctx) => ctx.reply("Send me a sticker"));
-      // bot.on("sticker", (ctx) => ctx.reply("🐶"));
-      // bot.on("message", async (ctx) => {
-      //     //console.log(ctx.update.message.message_id)
-      //     const message = ctx.update.message.text;
-      //     console.log(ctx.message.from.id)
-      //     if (message.match(/\hello/)) {
-      //       ctx.reply(`Hello bạn có thểm bấm /hello`);
-      //     } else {
-      //       ctx.reply("Hong hiểu...");
-      //     }
-      //   });
-            
 
       // routes
       app.post("/sendata", async (req, res) => {
@@ -124,7 +87,6 @@ mongoClient.connect(url, (err, db) =>{
 
             for( var i in result)
             {
-
               bot.sendMessage(JSON.stringify(result[i].userId), `Người bệnh đang có nhịp tim cao!` );
             }
           })
@@ -137,9 +99,6 @@ mongoClient.connect(url, (err, db) =>{
       app.get("/getdata", async (req, res) => {
         const myDb = db.db('Data')
         const collection = myDb.collection('main')
-        //const value = collection.find({$orderby: {$_id : -1}}).limit(5);
-        //const value = collection.find();
-        //,{ projection: { _id: 1, timestamp: 1 } }
         collection.find({},{$limit:5}).toArray(function(err, result) {
           if (result!=null) {
             console.log(result)
@@ -149,8 +108,6 @@ mongoClient.connect(url, (err, db) =>{
             console.log("die")
           }
           })
-        //console.log(value)
-        //res.status(200).send(JSON.stringify(value))
       })
     }
     

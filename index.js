@@ -71,6 +71,10 @@ mongoClient.connect(url, (err, db) =>{
       });
 
       // routes
+      app.get("/", async (req, res) => {
+        res.status(200).send("Hello")
+      })
+
       app.post("/sendata", async (req, res) => {
         const myDb = db.db('Data')
         const collection = myDb.collection('main')

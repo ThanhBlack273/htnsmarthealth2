@@ -79,7 +79,7 @@ mongoClient.connect(url, (err, db) =>{
           rate : req.body.rate,
           timestamp: new Date()
         }
-        if (value.rate>100)
+        if (value.rate<60 || value.rate>100)
         {
           const mydb2 = db.db('Data')
           const collection2 = mydb2.collection('User')
@@ -87,7 +87,24 @@ mongoClient.connect(url, (err, db) =>{
 
             for( var i in result)
             {
-              bot.sendMessage(JSON.stringify(result[i].userId), `Người bệnh đang có nhịp tim cao!` );
+              if (value.rate>100){
+                bot.sendMessage(JSON.stringify(result[i].userId), `Người bệnh đang có nhịp tim cao bất thường!` );
+              }
+              if (value.rate<60){
+                bot.sendMessage(JSON.stringify(result[i].userId), `Người bệnh đang có nhịp tim thấp bất thường!` );
+              }
+            }
+          })
+        }
+        if (value.spo2<96)
+        {
+          const mydb2 = db.db('Data')
+          const collection2 = mydb2.collection('User')
+          collection2.find({}).toArray( function(err, result) {
+
+            for( var i in result)
+            {
+              bot.sendMessage(JSON.stringify(result[i].userId), `Người bệnh đang có vấn đề về hô hấp, cần theo dõi ngay!` );
             }
           })
         }
@@ -95,7 +112,6 @@ mongoClient.connect(url, (err, db) =>{
           res.status(200).send(JSON.stringify(value))
         })
       });
-
       app.get("/getdata", async (req, res) => {
         const myDb = db.db('Data')
         const collection = myDb.collection('main')
@@ -110,7 +126,6 @@ mongoClient.connect(url, (err, db) =>{
           })
       })
     }
-    
   });
 
 

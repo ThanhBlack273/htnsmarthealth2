@@ -89,9 +89,11 @@ mongoClient.connect(url, (err, db) =>{
             {
               if (value.rate>100){
                 bot.sendMessage(JSON.stringify(result[i].userId), `Người bệnh đang có nhịp tim cao bất thường!` );
+                bot.sendMessage(JSON.stringify(result[i].userId), `Hướng dẫn chăm sóc người bệnh: \n https://medlatec.vn/tin-tuc/huong-dan-cham-soc-benh-nhan-tang-huyet-ap-tai-nha-s63-n21601` );
               }
               if (value.rate<60){
                 bot.sendMessage(JSON.stringify(result[i].userId), `Người bệnh đang có nhịp tim thấp bất thường!` );
+                bot.sendMessage(JSON.stringify(result[i].userId), `Hướng dẫn chăm sóc người bệnh: \n https://blog.bluecare.vn/lap-ke-hoach-cham-soc-benh-nhan-huyet-ap-thap/` );
               }
             }
           })
@@ -105,6 +107,7 @@ mongoClient.connect(url, (err, db) =>{
             for( var i in result)
             {
               bot.sendMessage(JSON.stringify(result[i].userId), `Người bệnh đang có vấn đề về hô hấp, cần theo dõi ngay!` );
+              bot.sendMessage(JSON.stringify(result[i].userId), `Hướng dẫn chăm sóc người bệnh: \n https://chamsoctaman.com.vn/cham-soc-benh-nhan-kho-tho/#:~:text=Ch%C4%83m%20s%C3%B3c%20b%E1%BB%87nh%20nh%C3%A2n%20kh%C3%B3%20th%E1%BB%9F%20trong%20t%C6%B0%20th%E1%BA%BF%20ngh%E1%BB%89%20ng%C6%A1i%20tr%E1%BB%8B%20li%E1%BB%87u,-%E2%80%93%20Sau%20khi%20th%E1%BB%B1c&text=%E2%80%93%20Theo%20d%C3%B5i%2C%20%C4%91%E1%BA%B7c%20bi%E1%BB%87t%20l%C3%A0,ch%E1%BB%91ng%20lo%C3%A9t%20cho%20b%E1%BB%87nh%20nh%C3%A2n.` );
             }
           })
         }
